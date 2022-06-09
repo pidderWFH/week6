@@ -10,7 +10,7 @@ const users ={
         let { email, password,confirmPassword,name } = req.body;
         // 內容不可為空
         if(!email||!password||!confirmPassword||!name){
-          return next(appError("400","欄位未填寫正確！",next));
+          return next(appError("400","欄位未填寫！",next));
         }
         // 密碼正確
         if(password!==confirmPassword){
@@ -48,13 +48,6 @@ const users ={
         generateSendJWT(user,200,res);
     },
 
-    async profile (req, res, next){
-        res.status(200).json({
-            status: 'success',
-            user: req.user
-          });
-    },
-
     async updatePassword (){
         const {password,confirmPassword } = req.body;
         if(password!==confirmPassword){
@@ -66,6 +59,17 @@ const users ={
             password:newPassword
         });
         generateSendJWT(user,200,res)
+    },
+
+    async getProfile (req, res, next){
+      res.status(200).json({
+          status: 'success',
+          user: req.user
+        });
+    },
+
+    async updateProfile (req, res, next){
+      res.status(200).send();
     }
 }
 

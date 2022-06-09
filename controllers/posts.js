@@ -1,6 +1,6 @@
 const appError = require("../service/appError");
-const Post = require("../model/posts");
-const User = require("../model/users");
+const Post = require("../models/posts");
+const User = require("../models/users");
 const mongoose = require("mongoose");
 
 const posts = {
