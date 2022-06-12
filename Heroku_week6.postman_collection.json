@@ -315,5 +315,42 @@
 				}
 			]
 		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://metawall-week6.herokuapp.com",
+			"type": "string"
+		},
+		{
+			"key": "jwt",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTU4NWYyMGRmZGE4NjViNTliMzJlYiIsImlhdCI6MTY1NTAxNDk1MiwiZXhwIjoxNjU1NjE5NzUyfQ.fnWXwIJj0mY6vZ_PWRCdstPx4iq-Ih4oDiLIcdXIIIY",
+			"type": "string"
+		},
+		{
+			"key": "postID",
+			"value": "62a588340dfda865b59b32f8",
+			"type": "string"
+		}
 	]
 }
