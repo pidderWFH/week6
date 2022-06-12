@@ -1,15 +1,15 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
-const {generateSendJWT} = require('../service/auth');
+const { generateSendJWT } = require('../service/auth');
 const appError = require('../service/appError'); 
 const User = require('../models/users');
 
 const users ={
     async signUp (req, res, next){
-        let { email, password,confirmPassword,name } = req.body;
+        let { email, password,confirmPassword,name, sex } = req.body;
         // 內容不可為空
-        if(!email||!password||!confirmPassword||!name){
+        if(!email || !password || !confirmPassword || !name || !sex){
           return next(appError("400","欄位未填寫！",next));
         }
         // 密碼正確
@@ -30,7 +30,8 @@ const users ={
         const newUser = await User.create({
           email,
           password,
-          name
+          name,
+          sex
         });
         generateSendJWT(newUser,201,res);
     },
@@ -48,28 +49,55 @@ const users ={
         generateSendJWT(user,200,res);
     },
 
-    async updatePassword (){
-        const {password,confirmPassword } = req.body;
-        if(password!==confirmPassword){
+    async updatePassword (req, res, next){
+        const {password, confirmPassword } = req.body;
+        if (!password || !confirmPassword){
+          return next(appError(400, "欄位未填寫!",next));
+        }
+        
+        if (!password.trim() || !confirmPassword.trim()){
+          return next(appError(400, "密碼不得為空白",next));
+        }
+        
+        if(!validator.isLength(password,{min:8})){
+          return next(appError(400, "密碼不能低於8碼!",next));
+        }
+
+        if(password !== confirmPassword){
             return next(appError("400","密碼不一致！",next));
         }
         newPassword = await bcrypt.hash(password,12);
         
-        const user = await User.findByIdAndUpdate(req.user.id,{
-            password:newPassword
-        });
+        const user = await User.findByIdAndUpdate(req.user.id,
+            { password:newPassword },
+            { returnDocument: 'after', runValidators: true },
+        );
         generateSendJWT(user,200,res)
     },
 
     async getProfile (req, res, next){
-      res.status(200).json({
-          status: 'success',
-          user: req.user
+
+        res.status(200).send({
+          "status": "success",
+          "user": req.user
         });
+
     },
 
     async updateProfile (req, res, next){
-      res.status(200).send();
+      const { name, sex, photo } = req.body;
+      if(!name.trim() || !sex.trim() || !photo.trim()){
+        return next(appError(400, "姓名、性別和上傳照片為必填!", next));
+      }
+    
+      const updateUserProfile = await User.findByIdAndUpdate(
+        req.user.id,
+        { name, sex, photo},
+        { returnDocument: "after", runValidators: true },
+      )
+      res.status(200).send(updateUserProfile);
+      
+
     }
 }
 

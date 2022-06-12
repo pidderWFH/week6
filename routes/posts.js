@@ -12,8 +12,8 @@ router.post('/post', isAuth, handleErrorAsync(PostsControllers.createdPosts));
 
 router.delete('/posts', isAuth, handleErrorAsync(PostsControllers.deleteAllPosts));
 
-router.delete('/post/:id',isAuth, handleErrorAsync(PostsControllers.deleteOnePosts));
+router.delete('/post/:post_id',isAuth, handleErrorAsync(PostsControllers.deleteOnePosts));
 
-router.patch('/post/:id', isAuth, handleErrorAsync(PostsControllers.patchPosts));
+router.patch('/post/:post_id', isAuth, handleErrorAsync(PostsControllers.patchPosts));
 
 module.exports = router;

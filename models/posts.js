@@ -10,8 +10,8 @@ const postSchema = new mongoose.Schema(
       required: [true, '內文未填寫']
     },
     image: {
-      type:String,
-      default:""
+      type: [ String ],
+      default: []
     },
     createdAt: {
       type: Date,
