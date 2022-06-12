@@ -1,0 +1,319 @@
+{
+	"info": {
+		"_postman_id": "a8983993-8960-4450-8b27-518a204ede96",
+		"name": "Heroku_week6",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19763572"
+	},
+	"item": [
+		{
+			"name": "會員功能",
+			"item": [
+				{
+					"name": "註冊會員",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Peter\",\r\n    \"email\": \"peter@gmail.com\",\r\n    \"sex\": \"Male\",\r\n    \"password\": \"1q2w3e4r\",\r\n    \"confirmPassword\": \"1q2w3e4r\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/sign_up",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"sign_up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "登入會員",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"peter@gmail.com\",\r\n    \"password\": \"1q2w3e4r\",\r\n    \"confirmPassword\": \"1q2w3e4r\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/sign_in",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"sign_in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "重設密碼",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"123\",\r\n    \"confirmPassword\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/updatePassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"updatePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得個人資料",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/users/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新個人資料",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Peter\",\r\n    \"sex\": \"male\",\r\n    \"photo\": \"https://i.imgur.com/IReA1sm.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "動態貼文",
+			"item": [
+				{
+					"name": "取得所有貼文",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/posts?timesort=desc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "timesort",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增貼文",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"content\": \"今天下雨天3\",\r\n    \"tags\": \"we are family3\",\r\n    \"type\": \"group\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/post",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "編輯貼文",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"content\": \"修改貼文987\",\r\n    \"tags\": \"666\",\r\n    \"type\": \"group\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/post/{{postID}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"post",
+								"{{postID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "刪除單筆貼文",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/post/{{postID}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"post",
+								"{{postID}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "刪除所有貼文",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/posts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
